@@ -1,0 +1,11 @@
+name: CodeForKidsPlugin
+main: codeforkids.minecraft.codeforkidsminecraft.CodeForKidsPlugin
+version: 0.0.1-SNAPSHOT
+author: CodeForKids
+description: Code For Kids Admin Plugin
+commands:
+   notify:
+      description: will email the admins with xyz and a message
+      usage: /<command> ["Message"]
+      permission: admin.notify
+      permission-message: You don't have permission to use that.
