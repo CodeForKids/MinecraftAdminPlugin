@@ -40,7 +40,6 @@ public class CodeForKidsPlugin extends JavaPlugin implements Listener  {
 	
 	@Override
 	public void onDisable() {
-		saveConfig();
 		getLogger().info("CodeForKidsPlugin has been disabled!");
 	}
 	
@@ -49,7 +48,7 @@ public class CodeForKidsPlugin extends JavaPlugin implements Listener  {
 	    Player player = evt.getPlayer(); // The player who joined
 	    try {
 	    	getLogger().info(player.getName() + " logged in... handling event");
-	    	notifyLoginOut(player.getName(), "true", player.getAddress().getHostName());
+	    	notifyLoginOut(player.getName(), "true", player.getAddress().getAddress().getHostAddress());
 			
 		} catch (Exception e) {
 			getLogger().info(e.getLocalizedMessage());
@@ -62,7 +61,7 @@ public class CodeForKidsPlugin extends JavaPlugin implements Listener  {
         Player player = event.getPlayer();
 	    try {
 	    	getLogger().info(player.getName() + " logged out... handling event");
-	    	notifyLoginOut(player.getName(), "false", player.getAddress().getHostName());
+	    	notifyLoginOut(player.getName(), "false", player.getAddress().getAddress().getHostAddress());
 		} catch (Exception e) {
 			getLogger().info(e.getLocalizedMessage());
 			getLogger().info(e.getStackTrace().toString());
@@ -126,6 +125,7 @@ public class CodeForKidsPlugin extends JavaPlugin implements Listener  {
 	private Boolean sendPost(String query) {
 		try {
 			String urlString = config.getString("url");
+			getLogger().info("Sending post to " + urlString);
 			URL url = new URL(urlString);
 		    URLConnection conn = url.openConnection();
 		    conn.setDoOutput(true);
@@ -177,14 +177,6 @@ public class CodeForKidsPlugin extends JavaPlugin implements Listener  {
 	        out.close();
 	        in.close();
 	    } catch (Exception e) {
-	        e.printStackTrace();
-	    }
-	}
-	
-	public void saveConfig() {
-	    try {
-	        config.save(configFile);
-	    } catch (IOException e) {
 	        e.printStackTrace();
 	    }
 	}
